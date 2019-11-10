@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 
@@ -13,10 +12,8 @@ import java.util.List;
 
 public class FileSystemViewer {
   private File current;
-  private String name;
 
   public FileSystemViewer(String name) {
-    this.name = name;
     current = new File(name);
   }
 
@@ -106,8 +103,6 @@ public class FileSystemViewer {
           }
         } catch (IOException ex) {
           System.err.println("The error was happened while file was adding lines!\n");
-        } catch (Exception ex) {
-          ex.printStackTrace();
         }
       }
     }
