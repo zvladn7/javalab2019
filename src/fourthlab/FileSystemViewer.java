@@ -19,11 +19,19 @@ public class FileSystemViewer {
 
   public void changeDir(String dir) {
     if (current.isDirectory()) {
-      File nextDir = new File(current.getPath() + '/' + dir);
-      if (List.of(current.listFiles()).contains(nextDir)) {
-        current = nextDir;
+      File nextDir;
+      if (!"..".equals(dir)) {
+        nextDir = new File(current.getPath() + '/' + dir);
       } else {
-        System.err.println("You've just sent the wrong name of directory!\n");
+        String path = current.getPath();
+        path = path.substring(0, path.lastIndexOf("/"));
+        nextDir = new File(path);
+      }
+      if (List.of(current.listFiles()).contains(nextDir) || ("..".equals(dir))) {
+        current = nextDir;
+
+      } else {
+        System.err.println("You've just sent the wrong name of directory!");
       }
     }
   }
@@ -42,9 +50,13 @@ public class FileSystemViewer {
       if (!newFile.exists()){
         try {
           newFile.createNewFile();
+          System.out.println("The file: " + file + " was successfully create!");
         } catch (IOException ex) {
-          System.err.println("The error was happened while the file was created! Try again!\n");
+          System.err.println("The error was happened while the file was created! Try again!");
         }
+      } else {
+        System.err.println("The file is already placed in this directory!");
+
       }
     }
   }
@@ -55,6 +67,9 @@ public class FileSystemViewer {
       File newFile = new File(current.getPath() + '/' + dir);
       if (!newFile.exists()){
         returnedValue = newFile.mkdir();
+        System.out.println("The dir: " + dir + " was successfully create!");
+      } else {
+        System.err.println("The dir is already placed in this directory!");
       }
     }
 
@@ -65,9 +80,11 @@ public class FileSystemViewer {
     boolean returnedValue = false;
     if (current.isDirectory()) {
       File fileToDelete = new File(current.getPath() + '/' + file);
-      System.out.println(fileToDelete.getPath());
       if (fileToDelete.exists()) {
         returnedValue = fileToDelete.delete();
+        System.out.println("The file: " + file + " deleted successfully!");
+      } else {
+        System.err.println("You tried to deleted not existed file or directory!");
       }
     }
 
@@ -84,8 +101,10 @@ public class FileSystemViewer {
             System.out.println(nextLine);
           }
         }  catch (IOException ex) {
-          System.err.println("The error was happened while file was reading!\n");
+          System.err.println("The error was happened while file was reading!");
         }
+      } else {
+        System.err.println("The file isn't existed!");
       }
     }
   }
@@ -93,7 +112,7 @@ public class FileSystemViewer {
   public void addLinesToFile(String file) {
     if (current.isDirectory()) {
       File fileToAdd = new File(current.getPath() + '/' + file);
-      if (fileToAdd.isFile()) {
+      if (fileToAdd.exists() && fileToAdd.isFile()) {
         String nextLine;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileToAdd, true))) {
           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -101,11 +120,16 @@ public class FileSystemViewer {
             bw.write(nextLine);
             bw.write("\n");
           }
+          System.out.println("Successful write to file!");
         } catch (IOException ex) {
-          System.err.println("The error was happened while file was adding lines!\n");
+          System.err.println("The error was happened while file was adding lines!");
         }
       }
     }
+  }
+
+  public String getPath() {
+    return current.getPath();
   }
 }
 

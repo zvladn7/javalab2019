@@ -15,6 +15,7 @@ public class FileSystemManager {
     commandMap.put("rm", x -> fsv.delete((String) x));
     commandMap.put("cat", x -> fsv.showFile((String) x));
     commandMap.put("addfile", x -> fsv.addLinesToFile((String) x));
+    commandMap.put("help", x -> helpCommand());
   }
 
   public void apply(String command) {
@@ -26,6 +27,10 @@ public class FileSystemManager {
     } else {
       commandMap.get(operation).accept(parameter);
     }
+  }
+
+  public String getPath() {
+    return fsv.getPath();
   }
 
   private String[] parseCommand(String command) throws IllegalArgumentException {
@@ -45,5 +50,15 @@ public class FileSystemManager {
     }
 
     return strings;
+  }
+
+  private void helpCommand() {
+    System.out.println("cd \"dir\" - change directory");
+    System.out.println("ls - show files in current directory");
+    System.out.println("touch \"file\" - create file");
+    System.out.println("mkdir \"dir\" - create directory");
+    System.out.println("rm \"file\"/\"dir\" - remove file or directory");
+    System.out.println("cat \"file\" - show file");
+    System.out.println("addfile \"file\" - append to file");
   }
 }
