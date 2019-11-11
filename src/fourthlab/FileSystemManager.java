@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class FileSystemManager {
-  private FileSystemViewer fsv = new FileSystemViewer("/home/zvladn7");
+  private FileSystemViewer fsv = new FileSystemViewer("/");
   private HashMap<String, Consumer> commandMap = new HashMap<>();
 
   public FileSystemManager() {

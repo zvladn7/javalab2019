@@ -63,6 +63,11 @@ public class FileSystemViewer {
 
   public boolean createDir(String dir) {
     boolean returnedValue = false;
+    if (current.getPath().equals("/") && "..".equals(dir))
+    {
+      System.err.println("You are in the root directory!");
+      return false;
+    }
     if (current.isDirectory()) {
       File newFile = new File(current.getPath() + '/' + dir);
       if (!newFile.exists()){
