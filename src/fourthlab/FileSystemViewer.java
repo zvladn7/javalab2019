@@ -20,6 +20,11 @@ public class FileSystemViewer {
   public void changeDir(String dir) {
     if (current.isDirectory()) {
       File nextDir;
+      if (current.getPath().equals("/") && "..".equals(dir))
+      {
+        System.err.println("You are in the root directory!");
+        return;
+      }
       if (!"..".equals(dir)) {
         nextDir = new File(current.getPath() + '/' + dir);
       } else {
@@ -63,11 +68,6 @@ public class FileSystemViewer {
 
   public boolean createDir(String dir) {
     boolean returnedValue = false;
-    if (current.getPath().equals("/") && "..".equals(dir))
-    {
-      System.err.println("You are in the root directory!");
-      return false;
-    }
     if (current.isDirectory()) {
       File newFile = new File(current.getPath() + '/' + dir);
       if (!newFile.exists()){
