@@ -33,7 +33,7 @@ public class FileSystemManager {
     return fsv.getPath();
   }
 
-  private String[] parseCommand(String command) throws IllegalArgumentException {
+  private String[] parseCommand(String command) {
     String[] strings = new String[2];
     int start = 0;
     int spaceIndex = command.indexOf(" ");
