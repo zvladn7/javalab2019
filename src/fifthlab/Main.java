@@ -1,8 +1,6 @@
 package fifthlab;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Map;
 import java.util.Properties;
 
@@ -20,17 +18,12 @@ public class Main {
     }
 
 
-    PropertiesReader propertiesReader = new PropertiesReader("test.properties");
-    System.out.println("by map:");
-    Map<String, String> map = propertiesReader.asMap();
-    map.forEach((key, value) -> System.out.println("key: " + key + " value: " + value));
-
-    System.out.println("by function:");
-    try (PrintWriter out = new PrintWriter(System.out)){
-      propertiesReader.printList(out);
-
-      out.println("get value by key:");
-      out.println("address: " + propertiesReader.getValue("address"));
+    try (BufferedReader in = new BufferedReader(new FileReader("test.properties"))) {
+      Properties gettingProperties = new Properties();
+      gettingProperties.load(in);
+      gettingProperties.list(System.out);
+    } catch(IOException ex) {
+      ex.printStackTrace();
     }
   }
 }
