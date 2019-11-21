@@ -1,5 +1,6 @@
 package fourthlab;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
@@ -29,7 +30,7 @@ public class FileSystemManager {
     }
   }
 
-  public String getPath() {
+  public String getPath() throws IOException {
     return fsv.getPath();
   }
 

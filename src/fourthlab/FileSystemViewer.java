@@ -20,7 +20,7 @@ public class FileSystemViewer {
   public void changeDir(String dir) {
     if (current.isDirectory()) {
       File nextDir;
-      if (current.getPath().equals("/") && "..".equals(dir))
+      if (current.getPath().equals("/") && dir.startsWith(".."))
       {
         System.err.println("You are in the root directory!");
         return;
@@ -30,11 +30,13 @@ public class FileSystemViewer {
       } else {
         String path = current.getPath();
         path = path.substring(0, path.lastIndexOf("/"));
+        if (path.isEmpty()) {
+          path = "/";
+        }
         nextDir = new File(path);
       }
-      if (List.of(current.listFiles()).contains(nextDir) || ("..".equals(dir))) {
+      if (nextDir.isDirectory() || ("..".equals(dir))) {
         current = nextDir;
-
       } else {
         System.err.println("You've just sent the wrong name of directory!");
       }
@@ -133,8 +135,8 @@ public class FileSystemViewer {
     }
   }
 
-  public String getPath() {
-    return current.getPath();
+  public String getPath()throws IOException {
+    return current.getCanonicalPath();
   }
 }
 
