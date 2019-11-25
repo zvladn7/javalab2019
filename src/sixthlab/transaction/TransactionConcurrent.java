@@ -1,12 +1,11 @@
 package sixthlab.transaction;
 
-import sixthlab.account.AccountConcurrent;
-import sixthlab.account.AccountSynchronized;
+import sixthlab.account.Account;
 import sixthlab.exceptions.NotEnoughMoneyOnAccountException;
 
 public class TransactionConcurrent extends Transaction {
 
-  public TransactionConcurrent(int id, int amountOfMoney, AccountConcurrent sender, AccountConcurrent reciever) {
+  public TransactionConcurrent(int id, int amountOfMoney, Account sender, Account reciever) {
     super(id, amountOfMoney, sender, reciever);
   }
 
@@ -31,11 +30,12 @@ public class TransactionConcurrent extends Transaction {
           }
         }
         try {
-          sender.makeTransacion(-amountOfMoney);
-          reciever.makeTransacion(amountOfMoney);
-          System.out.println(String.format("The transaction %d from: %d to: %d is completed", amountOfMoney, sender.getId(), reciever.getId()));
+          transaction();
         } catch (NotEnoughMoneyOnAccountException ex) {
           System.err.println(String.format("The transaction %d from: %d to: %d isn't completed. Not enough money!", amountOfMoney, sender.getId(), reciever.getId()));
+        } finally {
+          sender.getLock().unlock();
+          reciever.getLock().unlock();
         }
       }
 

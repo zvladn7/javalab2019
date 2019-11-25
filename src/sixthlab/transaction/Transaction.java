@@ -1,7 +1,6 @@
 package sixthlab.transaction;
 
 import sixthlab.account.Account;
-import sixthlab.account.AccountSynchronized;
 
 abstract public class Transaction {
   protected final int id;
@@ -31,5 +30,11 @@ abstract public class Transaction {
   public boolean isCompleted()
   {
     return isCompleted;
+  }
+
+  protected void transaction() {
+    sender.makeTransacion(-amountOfMoney);
+    reciever.makeTransacion(amountOfMoney);
+    System.out.println(String.format("The transaction %d from: %d to: %d is completed", amountOfMoney, sender.getId(), reciever.getId()));
   }
 }
