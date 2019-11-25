@@ -1,17 +1,11 @@
-package sixthlab;
+package sixthlab.account;
 
 import sixthlab.exceptions.NotEnoughMoneyOnAccountException;
 
-public class Account {
-  private final int id;
-  private int amountOfMoney;
+public class AccountSynchronized extends Account{
 
-  public Account(int id, int amountOfMoney) {
-    if (amountOfMoney < 0) {
-      throw new IllegalArgumentException("");
-    }
-    this.id = id;
-    this.amountOfMoney = amountOfMoney;
+  public AccountSynchronized(int id, int amountOfMoney) {
+    super(id, amountOfMoney);
   }
 
   public int getId() {
@@ -22,20 +16,17 @@ public class Account {
     return amountOfMoney;
   }
 
+  @Override
   public boolean isEnoughMoneyForTransaction(int moneyForTransaction) {
     return amountOfMoney + moneyForTransaction >= 0;
   }
 
-  public synchronized void makeTransacion(int moneyForTransaction) throws NotEnoughMoneyOnAccountException {
+  @Override
+  public void makeTransacion(int moneyForTransaction) throws NotEnoughMoneyOnAccountException {
     if (isEnoughMoneyForTransaction(moneyForTransaction)) {
       this.amountOfMoney += moneyForTransaction;
     } else {
       throw new NotEnoughMoneyOnAccountException("There's not enough money to make transaction!");
     }
-  }
-
-  @Override
-  public String toString() {
-    return String.format("id: %d, amount: %d", id, amountOfMoney);
   }
 }

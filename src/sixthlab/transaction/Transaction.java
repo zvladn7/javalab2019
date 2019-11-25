@@ -1,14 +1,14 @@
 package sixthlab.transaction;
 
-import sixthlab.Account;
-import sixthlab.exceptions.NotEnoughMoneyOnAccountException;
+import sixthlab.account.Account;
+import sixthlab.account.AccountSynchronized;
 
-public class Transaction {
-  private final int id;
-  private final int amountOfMoney;
-  private final Account sender;
-  private final Account reciever;
-  private boolean isCompleted;
+abstract public class Transaction {
+  protected final int id;
+  protected final int amountOfMoney;
+  protected final Account sender;
+  protected final Account reciever;
+  protected boolean isCompleted;
 
   public Transaction(int id, int amountOfMoney, Account sender, Account reciever) {
     if (amountOfMoney < 0) {
@@ -26,21 +26,7 @@ public class Transaction {
     this.isCompleted = false;
   }
 
-  public void makeTransaction(Object lock) {
-    if (sender.isEnoughMoneyForTransaction(amountOfMoney)) {
-      synchronized (lock) {
-        try {
-          sender.makeTransacion(-amountOfMoney);
-          reciever.makeTransacion(amountOfMoney);
-          System.out.println(String.format("The transaction %d from: %d to: %d is completed", amountOfMoney, sender.getId(), reciever.getId()));
-        } catch (NotEnoughMoneyOnAccountException ex) {
-          System.err.println(String.format("The transaction %d from: %d to: %d isn't completed. Not enough money!", amountOfMoney, sender.getId(), reciever.getId()));
-        }
-      }
-    }
-
-    isCompleted = true;
-  }
+  abstract public void makeTransaction();
 
   public boolean isCompleted()
   {

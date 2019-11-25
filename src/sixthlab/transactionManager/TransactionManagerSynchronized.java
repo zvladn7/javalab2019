@@ -1,8 +1,9 @@
-package sixthlab.transaction;
+package sixthlab.transactionManager;
 
-import sixthlab.Account;
+import sixthlab.account.AccountSynchronized;
 import sixthlab.exceptions.NotEnoughMoneyOnAccountException;
 import sixthlab.parser.TransactionParser;
+import sixthlab.transaction.TransactionSynchronized;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,16 +12,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionManager {
-  private List<Transaction> list;
-  private List<Account> accounts;
+public class TransactionManagerSynchronized {
+  private List<TransactionSynchronized> list;
+  private List<AccountSynchronized> accounts;
 
-  public TransactionManager(List<Transaction> list, List<Account> accounts) {
+  public TransactionManagerSynchronized(List<TransactionSynchronized> list, List<AccountSynchronized> accounts) {
     this.list = list;
     this.accounts = accounts;
   }
 
-  public TransactionManager(String filename, List<Account> accounts) {
+  public TransactionManagerSynchronized(String filename, List<AccountSynchronized> accounts) {
     this.accounts = accounts;
     try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
       String nextTransaction;
@@ -36,13 +37,20 @@ public class TransactionManager {
     }
   }
 
-  public void makeTransaction(Object lock) {
+  public void makeTransaction() {
     for (int i = 0; i < list.size(); ++i) {
+      Thread next;
       final int toThread = i;
       try {
-        new Thread(() -> {
-          list.get(toThread).makeTransaction(lock);
-        }).start();
+        next = new Thread(() -> {
+          list.get(toThread).makeTransaction();
+        });
+        next.start();
+        try {
+          next.join();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       } catch (NotEnoughMoneyOnAccountException ex) {
         System.err.println("not enough money!");
       }
@@ -50,7 +58,7 @@ public class TransactionManager {
   }
 
   public void print() {
-    for (Account nextAccount : accounts) {
+    for (AccountSynchronized nextAccount : accounts) {
       System.out.println(nextAccount);
     }
   }
