@@ -3,6 +3,7 @@ package sixthlab;
 import sixthlab.account.Account;
 import sixthlab.account.AccountConcurrent;
 import sixthlab.account.AccountSynchronized;
+import sixthlab.transactionGenerator.TransactionGenerator;
 import sixthlab.transactionManager.TransactionManager;
 
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ public class Main {
       selector = Integer.parseInt(br.readLine());
       System.out.println("Please write amount of account:");
       int amountOfAccount = Integer.parseInt(br.readLine());
+      new TransactionGenerator(amountOfAccount).generate("./src/sixthlab/transactions");
       for (int i = 0; i < amountOfAccount; ++i) {
         System.out.println(String.format("Write %d money's amount: ", i + 1));
         if (selector == 1) {
