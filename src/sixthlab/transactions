@@ -1,0 +1,11 @@
+from: 1 to: 2 amount: 45
+from: 1 to: 2 amount: 77
+from: 2 to: 1 amount: 168
+from: 3 to: 2 amount: 118
+from: 3 to: 2 amount: 154
+from: 3 to: 2 amount: 79
+from: 2 to: 3 amount: 137
+from: 1 to: 3 amount: 114
+from: 1 to: 2 amount: 147
+from: 1 to: 2 amount: 16
+from: 3 to: 2 amount: 101
