@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lab7.controllers.FirstLabController">
+    <children>
+        <AnchorPane layoutY="114.0" prefHeight="286.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
+            <children>
+                <Text layoutX="532.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Vlaz Zybkin&#10;Group: 3530904/80002&#10;" wrappingWidth="168.0" />
+            </children>
+        </AnchorPane>
+        <Label layoutX="240.0" layoutY="26.0" text="zvladn7" textFill="WHITE">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="56.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
