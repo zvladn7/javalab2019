@@ -4,25 +4,62 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Catalog {
   static public class Row {
     static private int nextID = 1;
 
-    private int id;
+    private String ID;
     private String author;
     private String name;
-    private int year;
+    private String year;
 
-    public Row(String author, String name, int year) {
-      this.id = nextID++;
+    public Row(String author, String name, String year) {
+      this.ID = String.valueOf(nextID++);
       this.author = author;
       this.name = name;
       this.year = year;
     }
 
+    public Row(String ID, String author, String name, String year) {
+      this.ID = ID;
+      this.author = author;
+      this.name = name;
+      this.year = year;
+    }
+
+    public String getID() {
+      return ID;
+    }
+
+    public String getAuthor() {
+      return author;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public String getYear() {
+      return year;
+    }
+
     public void print() {
-      System.out.println(id + ",  " + author + ",  " + name + ",  " + year);
+      System.out.println(ID + ",  " + author + ",  " + name + ",  " + year);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null || getClass() != obj.getClass())
+        return false;
+      Row row = (Row) obj;
+      return Objects.equals(ID, row.ID)
+              && Objects.equals(author, row.author)
+              && Objects.equals(name, row.name)
+              && Objects.equals(year, row.year);
     }
   }
 
@@ -45,17 +82,17 @@ public class Catalog {
     }
   }
 
-  public void find(int year) {
+  public void find(String year) {
     for (Row row : rows) {
-      if (row.year == year) {
+      if (row.year.equals(year)) {
         row.print();
       }
     }
   }
 
-  public void setAuthor(int id, String newAuthor, boolean changeAll) {
+  public void setAuthor(String id, String newAuthor, boolean changeAll) {
     for (Row row : rows) {
-      if (row.id == id) {
+      if (row.ID.equals(id)) {
         row.author = newAuthor;
         if (!changeAll) {
           break;
@@ -64,33 +101,22 @@ public class Catalog {
     }
   }
 
-  public void setAuthor(String prevAuthor, String newAuthor, boolean changeAll) {
-    for (Row row : rows) {
-      if (row.author.equals(prevAuthor)) {
-        row.author = newAuthor;
-        if (!changeAll) {
-          break;
-        }
-      }
-    }
-  }
-
-  public void setAuthor(int id, String newAuthor) {
+  public void setAuthor(String id, String newAuthor) {
     setAuthor(id, newAuthor, false);
   }
 
-  public void setName(int id, String name) {
+  public void setName(String id, String name) {
     for (Row row : rows) {
-      if (row.id == id) {
+      if (row.ID.equals(id)) {
         row.name = name;
         break;
       }
     }
   }
 
-  public void setYear(int id, int year) {
+  public void setYear(String  id, String year) {
     for (Row row : rows) {
-      if (row.id == id) {
+      if (row.ID.equals(id)) {
         row.year = year;
         break;
       }
@@ -104,6 +130,10 @@ public class Catalog {
 
   public void delete(int index) {
     rows.remove(index - 1);
+  }
+
+  public boolean delete(Row row) {
+    return rows.remove(row);
   }
 
   public void print() {
@@ -120,7 +150,7 @@ public class Catalog {
       case "ADD": {
         System.out.println("Write the new row like \"author name year:\"");
         String[] strings = br.readLine().split(" ");
-        catalog.add(new Catalog.Row(strings[0], strings[1], Integer.parseInt(strings[2])));
+        catalog.add(new Catalog.Row(strings[0], strings[1], strings[2]));
         break;
       }
       case "FIND": {
@@ -136,7 +166,7 @@ public class Catalog {
             break;
           }
           case "year": {
-            catalog.find(Integer.parseInt(str[1]));
+            catalog.find(str[1]);
           }
         }
         break;
@@ -146,15 +176,15 @@ public class Catalog {
         String[] str = br.readLine().split(" ");
         switch (str[0].toLowerCase()) {
           case "author": {
-            catalog.setAuthor(Integer.parseInt(str[1]), str[2]);
+            catalog.setAuthor(str[1], str[2]);
             break;
           }
           case "name": {
-            catalog.setName(Integer.parseInt(str[1]), str[2]);
+            catalog.setName(str[1], str[2]);
             break;
           }
           case "year": {
-            catalog.setYear(Integer.parseInt(str[1]), Integer.parseInt(str[2]));
+            catalog.setYear(str[1], str[2]);
           }
         }
         break;

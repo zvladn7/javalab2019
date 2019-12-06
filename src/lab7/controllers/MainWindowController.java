@@ -59,7 +59,7 @@ public class MainWindowController {
       Parent root = loader.getRoot();
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
-      stage.show();
+      stage.showAndWait();
     });
   }
 }
