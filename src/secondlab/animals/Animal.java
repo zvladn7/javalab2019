@@ -1,6 +1,7 @@
 package secondlab.animals;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 abstract public class Animal implements Serializable {
@@ -37,10 +38,9 @@ abstract public class Animal implements Serializable {
 
   public Animal(String id, String name, Food food) {
     this.ID = id;
-    this.name = id;
+    this.name = name;
     this.food = food;
   }
-
 
 
   public Animal(String name, Food food) {
@@ -63,6 +63,14 @@ abstract public class Animal implements Serializable {
     return name;
   }
 
+  public String getFoodType() {
+    return food.getType();
+  }
+
+  public Integer getAmount() {
+    return food.getAmount();
+  }
+
   public Food getFood() {
     if (food == null) {
       food = calcCountOfFood();
@@ -78,5 +86,18 @@ abstract public class Animal implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("ID: ").append(ID).append(", name: ").append(name).append(", food: ").append(food.toString());
     return sb.toString();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null || getClass() != obj.getClass())
+      return false;
+    Animal animal = (Animal) obj;
+    return Objects.equals(ID, animal.ID)
+            && Objects.equals(food.amount, animal.food.amount)
+            && Objects.equals(name, animal.name)
+            && Objects.equals(food.foodType, animal.food.foodType);
   }
 }
