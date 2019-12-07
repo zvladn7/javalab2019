@@ -19,10 +19,7 @@ public class Main {
 
     //Task A
     System.out.println("----------------------Task A---------------------");
-    listOfAnimals.sort((animal1, animal2) -> (animal1.getFood() != animal2.getFood() ?
-              animal1.getFood().getAmount() - animal2.getFood().getAmount() :
-              animal1.getName().toUpperCase().compareTo(animal2.getName().toUpperCase())
-            ));
+    sort(listOfAnimals);
 
     listOfAnimals.forEach(System.out::println);
 
@@ -43,7 +40,7 @@ public class Main {
     listForReading.forEach(System.out::println);
   }
 
-  private static void read(ArrayList<Animal> list, String file) {
+  public static void read(ArrayList<Animal> list, String file) {
     try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
         while (true) {
           try {
@@ -64,7 +61,7 @@ public class Main {
     }
   }
 
-  private static void write(ArrayList<Animal> list, String file) {
+  public static void write(ArrayList<Animal> list, String file) {
     try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
       for (Animal animal: list) {
         oos.writeObject(animal);
@@ -76,5 +73,12 @@ public class Main {
       System.err.println("Error happened when the object was writing!\n");
       ex.printStackTrace();
     }
+  }
+
+  public static void sort(ArrayList<Animal> list) {
+    list.sort((animal1, animal2) -> (animal1.getFood() != animal2.getFood() ?
+            animal1.getFood().getAmount() - animal2.getFood().getAmount() :
+            animal1.getName().toUpperCase().compareTo(animal2.getName().toUpperCase())
+    ));
   }
 }

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import secondlab.Main;
 import secondlab.animals.Animal;
 import secondlab.animals.Herbivorous;
 import secondlab.animals.Omnivore;
@@ -39,12 +40,6 @@ public class SecondLabController {
 
   @FXML
   private TextField textFieldAmount;
-
-  @FXML
-  private Button buttonAdd;
-
-  @FXML
-  private Button buttonRemove;
 
   @FXML
   private TextField textFieldInputFile;
@@ -97,27 +92,45 @@ public class SecondLabController {
 
   @FXML
   void onClearButtonCliked(ActionEvent event) {
-
+    for (Animal animal : listOfAnimals) {
+      booksTable.getItems().remove(animal);
+    }
+    listOfAnimals.clear();
+    resultsTextArea.setText("");
   }
 
   @FXML
   void onFirstButtonCliked(ActionEvent event) {
-
+    Main.sort(listOfAnimals);
+    StringBuilder sb = new StringBuilder();
+    listOfAnimals.stream().filter(x -> listOfAnimals.indexOf(x) < 5).forEach(x -> {
+      sb.append(x).append("\n");
+    });
+    resultsTextArea.setText(sb.toString());
   }
 
   @FXML
   void onLastButtonCliked(ActionEvent event) {
-
+    Main.sort(listOfAnimals);
+    StringBuilder sb = new StringBuilder();
+    listOfAnimals.stream().filter(x -> listOfAnimals.indexOf(x) > listOfAnimals.size() - 4).forEach(x -> {
+      sb.append(x).append("\n");
+    });
+    resultsTextArea.setText(sb.toString());
   }
 
   @FXML
   void onReadButtonCliked(ActionEvent event) {
-
+    String file = textFieldInputFile.getText();
+    onClearButtonCliked(event);
+    Main.read(listOfAnimals, file);
+    booksTable.getItems().addAll(listOfAnimals);
   }
 
   @FXML
   void onWriteButtonCliked(ActionEvent event) {
-
+    String file = textFieldOutputFile.getText();
+    Main.write(listOfAnimals, file);
   }
 
   ToggleGroup group = new ToggleGroup();
