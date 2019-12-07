@@ -16,10 +16,10 @@
                 <Text layoutX="638.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Vlaz Zybkin&#10;Group: 3530904/80002&#10;" wrappingWidth="168.0" />
             <TableView fx:id="booksTable" layoutX="86.0" layoutY="108.0" prefHeight="200.0" prefWidth="358.0">
               <columns>
-                  <TableColumn fx:id="columnID" prefWidth="92.0" text="ID" />
-                  <TableColumn fx:id="columnName" prefWidth="82.0" text="name" />
-                  <TableColumn fx:id="columnAuthor" prefWidth="93.0" text="author" />
-                  <TableColumn fx:id="columnYear" prefWidth="90.0" text="year" />
+                <TableColumn fx:id="columnID" prefWidth="92.0" text="ID" />
+                  <TableColumn fx:id="columnName" prefWidth="82.0" text="Name" />
+                  <TableColumn fx:id="columnAuthor" prefWidth="93.0" text="Author" />
+                  <TableColumn fx:id="columnYear" prefWidth="90.0" text="Year" />
               </columns>
             </TableView>
             <TextField fx:id="textFieldID" layoutX="102.0" layoutY="14.0" promptText="id" />
@@ -30,8 +30,8 @@
             <Label layoutX="51.0" layoutY="68.0" prefHeight="16.0" prefWidth="43.0" text="Name" />
             <Label layoutX="327.0" layoutY="19.0" text="Author" />
             <Label layoutX="341.0" layoutY="67.0" text="Year" />
-            <Button fx:id="buttonAdd" layoutX="484.0" layoutY="108.0" mnemonicParsing="false" onAction="#onAddButtonCliked" prefHeight="26.0" prefWidth="72.0" text="Add" />
-            <Button fx:id="buttonRemove" layoutX="484.0" layoutY="146.0" mnemonicParsing="false" onAction="#onRemoveButtonCliked" text="Remove" />
+            <Button fx:id="buttonAdd" layoutX="484.0" layoutY="108.0" onAction="#onAddButtonCliked" mnemonicParsing="false" prefHeight="26.0" prefWidth="72.0" text="Add" />
+            <Button fx:id="buttonRemove" layoutX="484.0" layoutY="146.0" onAction="#onRemoveButtonCliked" mnemonicParsing="false" text="Remove" />
             </children>
         </AnchorPane>
         <Label layoutX="297.0" layoutY="23.0" text="zvladn7" textFill="WHITE">

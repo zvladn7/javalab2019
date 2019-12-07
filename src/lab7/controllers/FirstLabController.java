@@ -3,8 +3,6 @@ package lab7.controllers;
 import firstlab.Catalog;
 
 import javafx.event.ActionEvent;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
