@@ -40,12 +40,17 @@ public class MainWindowController {
 
   @FXML
   void initialize() {
-    lab1_button.setOnAction(actionEvent -> {
-      lab1_button.getScene().getWindow().hide();
+    setOnActionForButton(lab1_button, "src/lab7/fxmlfiles/FirstLab.fxml");
+    setOnActionForButton(lab2_button, "src/lab7/fxmlfiles/SecondLab.fxml");
+  }
+
+  void setOnActionForButton(Button button, String path) {
+    button.setOnAction(actionEvent -> {
+      button.getScene().getWindow().hide();
 
       FXMLLoader loader = new FXMLLoader();
       try {
-        loader.setLocation(new File("src/lab7/fxmlfiles/FirstLab.fxml").toURL());
+        loader.setLocation(new File(path).toURL());
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
@@ -62,4 +67,5 @@ public class MainWindowController {
       stage.showAndWait();
     });
   }
+
 }

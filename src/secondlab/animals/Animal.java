@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.UUID;
 
 abstract public class Animal implements Serializable {
-  private String id;
+  private String ID;
   private String name;
   private Food food;
+
+
 
   public static class Food implements Serializable {
     private String foodType;
@@ -34,10 +36,12 @@ abstract public class Animal implements Serializable {
   }
 
   public Animal(String id, String name, Food food) {
-    this.id = id;
+    this.ID = id;
     this.name = id;
     this.food = food;
   }
+
+
 
   public Animal(String name, Food food) {
     this(UUID.randomUUID().toString(), name, food);
@@ -51,8 +55,8 @@ abstract public class Animal implements Serializable {
     this(name, (Food) null);
   }
 
-  public String getId() {
-    return id;
+  public String getID() {
+    return ID;
   }
 
   public String getName() {
@@ -66,12 +70,13 @@ abstract public class Animal implements Serializable {
     return food;
   }
 
+
   abstract public Food calcCountOfFood();
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("ID: ").append(id).append(", name: ").append(name).append(", food: ").append(food.toString());
+    sb.append("ID: ").append(ID).append(", name: ").append(name).append(", food: ").append(food.toString());
     return sb.toString();
   }
 }
