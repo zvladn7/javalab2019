@@ -44,6 +44,7 @@ public class MainWindowController {
     setOnActionForButton(lab2_button, "src/lab7/fxmlfiles/SecondLab.fxml");
     setOnActionForButton(lab3_button, "src/lab7/fxmlfiles/ThirdLab.fxml");
     setOnActionForButton(lab4_button, "src/lab7/fxmlfiles/FourthLab.fxml");
+    setOnActionForButton(lab5_button, "src/lab7/fxmlfiles/FifthLab.fxml");
   }
 
   void setOnActionForButton(Button button, String path) {
