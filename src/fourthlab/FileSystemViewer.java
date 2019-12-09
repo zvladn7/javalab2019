@@ -1,20 +1,20 @@
 package fourthlab;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import java.util.List;
 
 public class FileSystemViewer {
   private File current;
+  private PrintWriter out;
 
-  public FileSystemViewer(String name) {
+  public FileSystemViewer(String name, PrintWriter out) {
+    this.out = out;
     current = new File(name);
+  }
+
+  public void setOut(PrintWriter out) {
+    this.out = out;
   }
 
   public void changeDir(String dir) {
@@ -22,7 +22,7 @@ public class FileSystemViewer {
       File nextDir;
       if (current.getPath().equals("/") && dir.startsWith(".."))
       {
-        System.err.println("You are in the root directory!");
+        out.println("You are in the root directory!");
         return;
       }
       if (!"..".equals(dir)) {
@@ -38,7 +38,7 @@ public class FileSystemViewer {
       if (nextDir.isDirectory() || ("..".equals(dir))) {
         current = nextDir;
       } else {
-        System.err.println("You've just sent the wrong name of directory!");
+        out.println("You've just sent the wrong name of directory!");
       }
     }
   }
@@ -47,7 +47,7 @@ public class FileSystemViewer {
     if (current.isDirectory()) {
       File[] dirFiles = current.listFiles();
       if (dirFiles != null)
-        List.of(dirFiles).forEach(System.out::println);
+        List.of(dirFiles).forEach(out::println);
     }
   }
 
@@ -57,12 +57,12 @@ public class FileSystemViewer {
       if (!newFile.exists()){
         try {
           newFile.createNewFile();
-          System.out.println("The file: " + file + " was successfully create!");
+          out.println("The file: " + file + " was successfully create!");
         } catch (IOException ex) {
-          System.err.println("The error was happened while the file was created! Try again!");
+          out.println("The error was happened while the file was created! Try again!");
         }
       } else {
-        System.err.println("The file is already placed in this directory!");
+        out.println("The file is already placed in this directory!");
 
       }
     }
@@ -74,9 +74,9 @@ public class FileSystemViewer {
       File newFile = new File(current.getPath() + '/' + dir);
       if (!newFile.exists()){
         returnedValue = newFile.mkdir();
-        System.out.println("The dir: " + dir + " was successfully create!");
+        out.println("The dir: " + dir + " was successfully create!");
       } else {
-        System.err.println("The dir is already placed in this directory!");
+        out.println("The dir is already placed in this directory!");
       }
     }
 
@@ -89,9 +89,9 @@ public class FileSystemViewer {
       File fileToDelete = new File(current.getPath() + '/' + file);
       if (fileToDelete.exists()) {
         returnedValue = fileToDelete.delete();
-        System.out.println("The file: " + file + " deleted successfully!");
+        out.println("The file: " + file + " deleted successfully!");
       } else {
-        System.err.println("You tried to deleted not existed file or directory!");
+        out.println("You tried to deleted not existed file or directory!");
       }
     }
 
@@ -105,13 +105,13 @@ public class FileSystemViewer {
         try (BufferedReader br = new BufferedReader(new FileReader(fileToShow))) {
           String nextLine;
           while ((nextLine = br.readLine()) != null) {
-            System.out.println(nextLine);
+            out.println(nextLine);
           }
         }  catch (IOException ex) {
-          System.err.println("The error was happened while file was reading!");
+          out.println("The error was happened while file was reading!");
         }
       } else {
-        System.err.println("The file isn't existed!");
+        out.println("The file isn't existed!");
       }
     }
   }
@@ -127,9 +127,9 @@ public class FileSystemViewer {
             bw.write(nextLine);
             bw.write("\n");
           }
-          System.out.println("Successful write to file!");
+          out.println("Successful write to file!");
         } catch (IOException ex) {
-          System.err.println("The error was happened while file was adding lines!");
+          out.println("The error was happened while file was adding lines!");
         }
       }
     }

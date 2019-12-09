@@ -1,14 +1,24 @@
 package fourthlab;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class FileSystemManager {
-  private FileSystemViewer fsv = new FileSystemViewer("/");
+  private FileSystemViewer fsv;
   private HashMap<String, Consumer> commandMap = new HashMap<>();
+  private PrintWriter out;
+  private boolean isFile;
+  private String filename;
 
-  public FileSystemManager() {
+  public FileSystemManager(PrintWriter out, boolean isFile, String filename) {
+    this.out = out;
+    this.isFile = isFile;
+    this.filename = filename;
+    fsv = new FileSystemViewer("/", out);
     commandMap.put("cd", x -> fsv.changeDir((String) x));
     commandMap.put("ls", x -> fsv.showFiles());
     commandMap.put("touch", x -> fsv.createFile((String) x));
@@ -20,13 +30,25 @@ public class FileSystemManager {
   }
 
   public void apply(String command) {
+    if (isFile) {
+      try {
+        out = new PrintWriter(new FileWriter(filename));
+        fsv.setOut(out);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
     String[] strings = parseCommand(command);
     String operation = strings[0];
     String parameter = strings[1];
     if (!commandMap.containsKey(operation)) {
-      System.err.println("The wrong format of command: " + operation + " " + parameter);
+      out.println("The wrong format of command: " + operation + " " + parameter);
     } else {
       commandMap.get(operation).accept(parameter);
+      out.flush();
+    }
+    if (isFile) {
+      out.close();
     }
   }
 
@@ -54,12 +76,12 @@ public class FileSystemManager {
   }
 
   private void helpCommand() {
-    System.out.println("cd \"dir\" - change directory");
-    System.out.println("ls - show files in current directory");
-    System.out.println("touch \"file\" - create file");
-    System.out.println("mkdir \"dir\" - create directory");
-    System.out.println("rm \"file\"/\"dir\" - remove file or directory");
-    System.out.println("cat \"file\" - show file");
-    System.out.println("addfile \"file\" - append to file");
+    out.println("cd \"dir\" - change directory");
+    out.println("ls - show files in current directory");
+    out.println("touch \"file\" - create file");
+    out.println("mkdir \"dir\" - create directory");
+    out.println("rm \"file\"/\"dir\" - remove file or directory");
+    out.println("cat \"file\" - show file");
+    out.println("addfile \"file\" - append to file");
   }
 }

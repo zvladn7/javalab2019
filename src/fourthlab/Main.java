@@ -1,13 +1,18 @@
 package fourthlab;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Main {
   public static void main(String[] args) {
-    FileSystemManager fsm = new FileSystemManager();
-    System.out.println("To show commands write: help");
+    PrintWriter out = null;
+    try {
+      out = new PrintWriter(new FileWriter("out4.txt"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    FileSystemManager fsm = new FileSystemManager(out, false, "");
+    out.println("To show commands write: help");
+    out.flush();
     try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
       String command;
       System.out.print(fsm.getPath() + "$:");
