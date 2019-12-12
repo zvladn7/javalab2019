@@ -44,7 +44,6 @@ public class MainWindowController {
 
   void setOnActionForButton(Button button, String path) {
     button.setOnAction(actionEvent -> {
-      button.getScene().getWindow().hide();
 
       FXMLLoader loader = new FXMLLoader();
       try {
