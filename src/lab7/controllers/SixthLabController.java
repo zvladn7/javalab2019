@@ -19,19 +19,7 @@ import sixthlab.transactionGenerator.TransactionGenerator;
 public class SixthLabController {
 
   @FXML
-  private ResourceBundle resources;
-
-  @FXML
-  private URL location;
-
-  @FXML
   private TextArea transactionsTextArea;
-
-  @FXML
-  private Button runSynchronizedButton;
-
-  @FXML
-  private Button runConcurrentButton;
 
   private List<Account> listSynchronized = new ArrayList<>();
   private List<Account> listConcurrent = new ArrayList<>();

@@ -45,25 +45,6 @@ public class FourthLabController {
         e.printStackTrace();
       }
       consoleField.appendText("");
-//      try {
-//        consoleField.appendText(fileSystemManager.getPath() + "$:");
-//        //out.flush();
-//        while (true) {
-//          String text = consoleField.getText().substring(0, consoleField.getText().length() - 1);
-//          String command = text.substring(text.indexOf(':') + 1);
-//          fileSystemManager.apply(command);
-//          consoleField.appendText(fileSystemManager.getPath() + "$:");
-//          BufferedReader in = new BufferedReader(new FileReader("out4.txt"));
-//          String next;
-//          while ((next = in.readLine()) != null) {
-//            consoleField.appendText(next);
-//          }
-//          in.close();
-//          // out.flush();
-//        }
-//      } catch (IOException ex) {
-//        System.err.println("Smth's going wrong. Let's try to rerun app!");
-//      }
     }
   }
 

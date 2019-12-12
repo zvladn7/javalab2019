@@ -15,12 +15,6 @@ import javafx.stage.Stage;
 public class MainWindowController {
 
   @FXML
-  private ResourceBundle resources;
-
-  @FXML
-  private URL location;
-
-  @FXML
   private Button lab1_button;
 
   @FXML

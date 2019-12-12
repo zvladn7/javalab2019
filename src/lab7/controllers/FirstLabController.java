@@ -36,12 +36,6 @@ public class FirstLabController {
   @FXML
   private TextField textFieldYear;
 
-  @FXML
-  private Button buttonAdd;
-
-  @FXML
-  private Button buttonRemove;
-
   private Catalog catalog = new Catalog();
 
   @FXML

@@ -1,34 +1,21 @@
 package lab7.controllers;
 
 import java.io.*;
-import java.net.URL;
 import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class FifthLabController {
 
   @FXML
-  private ResourceBundle resources;
-
-  @FXML
-  private URL location;
-
-  @FXML
   private TextField inputFileField;
 
   @FXML
   private TextArea propertiesTextArea;
-
-  @FXML
-  private Button getPropertiesButton;
 
   @FXML
   void onGetPropertiesClicked(ActionEvent event) {
