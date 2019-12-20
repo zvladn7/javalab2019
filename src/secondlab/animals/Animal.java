@@ -1,12 +1,15 @@
 package secondlab.animals;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 abstract public class Animal implements Serializable {
-  private String id;
+  private String ID;
   private String name;
   private Food food;
+
+
 
   public static class Food implements Serializable {
     private String foodType;
@@ -34,10 +37,11 @@ abstract public class Animal implements Serializable {
   }
 
   public Animal(String id, String name, Food food) {
-    this.id = id;
-    this.name = id;
+    this.ID = id;
+    this.name = name;
     this.food = food;
   }
+
 
   public Animal(String name, Food food) {
     this(UUID.randomUUID().toString(), name, food);
@@ -51,12 +55,20 @@ abstract public class Animal implements Serializable {
     this(name, (Food) null);
   }
 
-  public String getId() {
-    return id;
+  public String getID() {
+    return ID;
   }
 
   public String getName() {
     return name;
+  }
+
+  public String getFoodType() {
+    return food.getType();
+  }
+
+  public Integer getAmount() {
+    return food.getAmount();
   }
 
   public Food getFood() {
@@ -66,12 +78,26 @@ abstract public class Animal implements Serializable {
     return food;
   }
 
+
   abstract public Food calcCountOfFood();
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("ID: ").append(id).append(", name: ").append(name).append(", food: ").append(food.toString());
+    sb.append("ID: ").append(ID).append(", name: ").append(name).append(", food: ").append(food.toString());
     return sb.toString();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null || getClass() != obj.getClass())
+      return false;
+    Animal animal = (Animal) obj;
+    return Objects.equals(ID, animal.ID)
+            && Objects.equals(food.amount, animal.food.amount)
+            && Objects.equals(name, animal.name)
+            && Objects.equals(food.foodType, animal.food.foodType);
   }
 }

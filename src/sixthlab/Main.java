@@ -9,6 +9,7 @@ import sixthlab.transactionManager.TransactionManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,17 +35,19 @@ public class Main {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+    PrintWriter out = new PrintWriter(System.out);
     if (selector == 1) {
-      startWorkingProcess(list, true);
+      startWorkingProcess(list, true, out);
     } else if (selector == 2) {
-      startWorkingProcess(list, false);
+      startWorkingProcess(list, false, out);
     } else {
       System.err.println("You've just written invalid selector!");
     }
+    out.close();
   }
 
-  private static void startWorkingProcess(List<Account> list, boolean isSynchronized) {
-    TransactionManager tm = new TransactionManager("./src/sixthlab/transactions", list, isSynchronized);
+  public static void startWorkingProcess(List<Account> list, boolean isSynchronized, PrintWriter out) {
+    TransactionManager tm = new TransactionManager("./src/sixthlab/transactions", list, isSynchronized, out);
     tm.print();
     tm.makeTransaction();
     tm.print();
